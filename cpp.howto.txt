@@ -1,0 +1,11 @@
+https://stackoverflow.com/questions/2602013/read-whole-ascii-file-into-c-stdstring
+https://stackoverflow.com/questions/11751486/qt-c-aggregate-stdstringstream-ss-has-incomplete-type-and-cannot-be-define
+https://www.edureka.co/blog/maps-in-cpp/
+https://stackoverflow.com/questions/15151480/simple-dictionary-in-c
+https://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring
+https://stackoverflow.com/questions/37555523/why-doesnt-stdvector-use-an-offset
+https://stackoverflow.com/questions/2434196/how-to-initialize-stdvector-from-c-style-array
+https://stackoverflow.com/questions/3530771/passing-variable-arguments-to-another-function-that-accepts-a-variable-argument
+https://stackoverflow.com/questions/2310939/remove-last-character-from-c-string
+https://www.w3schools.com/cpp/cpp_strings_input.asp
+http://www.cplusplus.com/reference/map/map/operator[]/
