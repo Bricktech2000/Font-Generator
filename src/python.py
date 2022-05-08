@@ -27,7 +27,7 @@ class FontGenerator:
         return self.font.gen(*argv)
 
 import sys
-filename = sys.argv[2]
+filename = sys.argv[1]
 font = open(filename, 'r').read()
 generator = FontGenerator(font)
 while True: print(generator.gen(input('text: ')))
