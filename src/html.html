@@ -1,76 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-</head>
-<body>
+  </head>
+  <body>
     <form onsubmit="return false">
-        <input type="file" class="fileInput">
-        <input type="text" class="textInput">
-        <input type="submit" class="submit">
+      <input type="file" class="fileInput" />
+      <input type="text" class="textInput" />
+      <input type="submit" class="submit" />
     </form>
-    <div class="output" style="font-family: monospace; white-space: pre;"></div>
+    <div class="output" style="font-family: monospace; white-space: pre"></div>
     <script>
-        var fileInput = document.getElementsByClassName('fileInput')[0];
-        var textInput = document.getElementsByClassName('textInput')[0];
-        var submit = document.getElementsByClassName('submit')[0];
-        var output = document.getElementsByClassName('output')[0];
-        var generator;
-        fileInput.onchange = function(e){
-            var reader = new FileReader();
-            reader.onload = function(){
-                var font = reader.result;
-                generator = new FontGenerator(font);
-            }
-            reader.readAsText(this.files[0]);
-            this.files = null;
+      let fileInput = document.getElementsByClassName('fileInput')[0];
+      let textInput = document.getElementsByClassName('textInput')[0];
+      let submit = document.getElementsByClassName('submit')[0];
+      let output = document.getElementsByClassName('output')[0];
+      let generator;
+      fileInput.onchange = function (e) {
+        let reader = new FileReader();
+        reader.onload = function () {
+          let font = reader.result;
+          generator = new FontGenerator(font);
+        };
+        reader.readAsText(this.files[0]);
+        this.files = null;
+      };
+      submit.onclick = function () {
+        output.textContent = generator.gen(textInput.value);
+        textInput.value = '';
+      };
+
+      class Char {
+        constructor(rows) {
+          this.rows = rows;
         }
-        submit.onclick = function(){
-            output.textContent = generator.gen(textInput.value);
-            textInput.value = '';
+        append(arr) {
+          for (let i = 0; i < this.rows.length; i++) {
+            if (i >= arr.length) arr.push('');
+            arr[i] += this.rows[i];
+          }
         }
-        
-        
-        class Char{
-            constructor(rows){
-                this.rows = rows;
-            }
-            append(arr){
-                for(var i = 0; i < this.rows.length; i++){
-                    if(i >= arr.length) arr.push('');
-                    arr[i] += this.rows[i];
-                }
-            }
+      }
+
+      class Font {
+        constructor(charMap) {
+          this.charMap = charMap;
         }
-        
-        class Font{
-            constructor(charMap){
-                this.charMap = charMap
-            }
-            gen(string){
-                var ret = [];
-                for(var c of string)
-                    this.charMap[c].append(ret);
-                return ret.join('\n');
-            }
+        gen(string) {
+          let ret = [];
+          for (let c of string) this.charMap[c].append(ret);
+          return ret.join('\n');
         }
-        
-        class FontGenerator{
-            constructor(font){
-                var chrs = font.split('\n\n');
-                var charMap = {}
-                for(var chr of chrs){
-                    var lines = chr.split('\n');
-                    charMap[lines[0]] = new Char(lines.splice(1));
-                }
-                this.font = new Font(charMap);
-            }
-            gen(...params){
-                return this.font.gen(...params);
-            }
+      }
+
+      class FontGenerator {
+        constructor(font) {
+          let chrs = font.split('\n\n');
+          let charMap = {};
+          for (let chr of chrs) {
+            let lines = chr.split('\n');
+            charMap[lines[0]] = new Char(lines.splice(1));
+          }
+          this.font = new Font(charMap);
         }
+        gen(...params) {
+          return this.font.gen(...params);
+        }
+      }
     </script>
-</body>
+  </body>
 </html>
+
